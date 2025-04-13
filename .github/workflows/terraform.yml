@@ -1,4 +1,4 @@
-name: Terraform Apply
+name: Terraform Apply and Auto Destroy
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: 'Terraform Apply and Destroy'
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,9 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+
+      - name: Wait 2 minutes before destroy
+        run: sleep 120
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
